@@ -17,7 +17,8 @@ concurrency:
 jobs:
   build-and-test:
     if: ${{ github.event_name != 'push' || github.ref_name == github.event.repository.default_branch }}
-    runs-on: ubuntu-22.04
+    # 16-vCPU Ubicloud runner only when youtalk both owns the repo and triggered the run; ubuntu-22.04 otherwise.
+    runs-on: ${{ (github.repository_owner == 'youtalk' && github.actor == 'youtalk') && 'ubicloud-standard-16' || 'ubuntu-22.04' }}
     container: ${{ matrix.container }}
     strategy:
       fail-fast: false
