@@ -36,19 +36,13 @@
         check_traffic_signal: true
         check_turning_lanes: false # {OVERRIDE}
 
+      # Obstacle-grid consumer settings (the data source is now the 2.5D obstacle grid, not a raw
+      # point cloud; the group key is kept as `pointcloud` to minimize downstream churn).
       pointcloud:
         height_buffer: 0.5  # [m]
         min_height: 0.5  # [m]
-        voxel_grid_filter:
-          x: 0.2
-          y: 0.2
-          z: 0.2
-          min_size: 3
-        clustering:
-          tolerance: 0.5  #[m]
-          min_height: 0.5
-          min_size: 10
-          max_size: 10000
+        min_point_count_cell: 1  # [-] per-cell raw (pre-voxel) return floor; NOT the old post-voxel cluster min_size=10
+        grid_timeout_sec: 0.5  # [s] a grid older than this reads as unavailable, never as clear
         velocity_estimation:
           max_acceleration: 20.0  # [m/s^2]
           max_velocity: 25.0  # [m/s]

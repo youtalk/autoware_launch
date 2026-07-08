@@ -13,8 +13,9 @@
 
 /**:
   ros__parameters:
-    use_pointcloud: false # use pointcloud as obstacle check
+    use_pointcloud: false # use the obstacle grid as obstacle check
     use_dynamic_object: true # use dynamic object as obstacle check
+    obstacle_grid_timeout_sec: 0.5 # [s] obstacle grid older than this is treated as unavailable (fail-safe), never as clear
     collision_distance: 0.1 # Distance at which an object is determined to have collided with ego [m]
     nearby_filter_radius: 5.0 # Radius to filter nearby objects [m]
     keep_ignoring_time: 10.0 # Time to keep filtering objects that first appeared in the vicinity

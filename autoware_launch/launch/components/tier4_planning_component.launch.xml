@@ -12,6 +12,7 @@
   <!-- Input topic parameters for planning modules -->
   <arg name="planning_input_objects_topic_name" default="/perception/object_recognition/objects"/>
   <arg name="planning_input_pointcloud_topic_name" default="/perception/obstacle_segmentation/pointcloud"/>
+  <arg name="planning_input_obstacle_grid_topic_name" default="/sensing/obstacle_segmentation/obstacle_grid"/>
 
   <!-- Diffusion Planner Trajectory Optimizer Plugins-->
   <let name="neural_net_planner_config_path" value="$(find-pkg-share autoware_launch)/config/planning/neural_net_planner"/>
@@ -37,6 +38,7 @@
     <!-- Input topic parameters -->
     <arg name="input_objects_topic_name" value="$(var planning_input_objects_topic_name)"/>
     <arg name="input_pointcloud_topic_name" value="$(var planning_input_pointcloud_topic_name)"/>
+    <arg name="input_obstacle_grid_topic_name" value="$(var planning_input_obstacle_grid_topic_name)"/>
 
     <!-- common -->
     <arg name="common_config_path" value="$(find-pkg-share autoware_launch)/config/planning/scenario_planning/common"/>

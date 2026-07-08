@@ -66,18 +66,12 @@
         safety_buffer: 0.1 # [m] safety buffer to expand object shape
 
       pointcloud:
-        height_buffer: 0.5  # height buffer to add above ego height [m]
-        min_height: 0.2  # minimum height of pointcloud [m]
-        voxel_grid_filter:
-          x: 0.2
-          y: 0.2
-          z: 0.2
-          min_size: 3
+        height_buffer: 0.5  # height buffer added above ego height for the obstacle grid z-band top [m]
+        min_point_count_cell: 1  # per-cell density floor [returns]
+        obstacle_grid_timeout_sec: 0.5  # obstacle grid staleness watchdog [s]; stale = unavailable, not "clear"
         clustering:
-          tolerance: 0.5  #[m]
-          min_height: 0.5
-          min_size: 10
-          max_size: 10000
+          min_height: 0.5  # per-cell low_max_height floor [m] (tallest in-band return)
+          min_size: 10  # min summed point_count over an 8-connected component of qualifying cells
 
       rss_params:
         enable: true

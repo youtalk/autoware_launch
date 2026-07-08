@@ -1,0 +1,17 @@
+/**:
+  ros__parameters:
+    roi:
+      # ROI widened from the package default (60/40/+20) so the shipped grid is a strict superset
+      # of every launched consumer's query region. The dominant driver is the planning_validator
+      # rear collision checker, whose backward RSS reach is ~89 m (60 km/h adjacent lane); its
+      # runtime ROI guard compares (length_x/2 - offset_x) against that reach. With length_x=160 and
+      # offset_x=-20 the grid spans x in [-100, +60] m (rear extent 100 m > 89 m) and y in [-20, +20] m.
+      length_x: 160.0  # {OVERRIDE: rear-biased ROI; upstream default is forward-biased} longitudinal extent [m]
+      length_y: 40.0   # lateral surround + adjacent-lane coverage [m]
+      offset_x: -20.0  # {OVERRIDE: rear-biased ROI; upstream default is forward-biased} grid-center +x offset from base_link [m]
+    resolution: 0.2   # cell size [m]; <= existing ~0.3 m lateral jitter
+    crop:
+      z_min: -1.0     # union z-band lower bound [m]
+      z_max: 3.0      # union z-band upper bound [m]; consumers re-apply their own z gate
+    overhead_split: 2.5  # low_max_height ceiling [m]; must be >= every consumer's own z-band top
+                         # (vehicle_height + margin) so in-band mass is never hidden from them

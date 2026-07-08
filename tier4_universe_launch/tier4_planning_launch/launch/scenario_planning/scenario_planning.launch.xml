@@ -4,6 +4,7 @@
   <!-- Input topic parameters -->
   <arg name="input_objects_topic_name"/>
   <arg name="input_pointcloud_topic_name"/>
+  <arg name="input_obstacle_grid_topic_name"/>
   <!-- scenario selector -->
   <group>
     <include file="$(find-pkg-share autoware_scenario_selector)/launch/scenario_selector.launch.xml">
@@ -68,6 +69,7 @@
         <arg name="is_simulation" value="$(var is_simulation)"/>
         <arg name="input_objects_topic_name" value="$(var input_objects_topic_name)"/>
         <arg name="input_pointcloud_topic_name" value="$(var input_pointcloud_topic_name)"/>
+        <arg name="input_obstacle_grid_topic_name" value="$(var input_obstacle_grid_topic_name)"/>
       </include>
     </group>
     <!-- parking -->

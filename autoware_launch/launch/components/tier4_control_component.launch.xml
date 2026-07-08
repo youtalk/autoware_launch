@@ -13,7 +13,7 @@
 
   <!-- Input topic parameters for control modules -->
   <arg name="control_input_objects_topic_name" default="/perception/object_recognition/objects"/>
-  <arg name="control_input_pointcloud_topic_name" default="/perception/obstacle_segmentation/pointcloud"/>
+  <arg name="control_input_obstacle_grid_topic_name" default="/sensing/obstacle_segmentation/obstacle_grid"/>
 
   <!-- Global parameters -->
   <group scoped="false">
@@ -34,7 +34,7 @@
 
     <!-- Input topic parameters -->
     <arg name="input_objects_topic_name" value="$(var control_input_objects_topic_name)"/>
-    <arg name="input_pointcloud_topic_name" value="$(var control_input_pointcloud_topic_name)"/>
+    <arg name="input_obstacle_grid_topic_name" value="$(var control_input_obstacle_grid_topic_name)"/>
     <arg name="trajectory_follower_node_param_path" value="$(find-pkg-share autoware_launch)/config/control/trajectory_follower/trajectory_follower_node.param.yaml"/>
     <arg
       name="lat_controller_param_path"

@@ -25,32 +25,31 @@
     imu_path_lat_dev_threshold: 1.75
     min_generated_imu_path_length: 0.5
     max_generated_imu_path_length: 10.0
+    # Kinematic-state (yaw-rate) staleness watchdog [s]; a twist older than this makes the imu-path
+    # yaw source unavailable (the imu path is skipped that cycle), never a usable/zero-yaw estimate.
+    kinematic_state_timeout_sec: 0.5
     imu_prediction_time_horizon: 1.5
     imu_prediction_time_interval: 0.1
     mpc_prediction_time_horizon: 4.5
     mpc_prediction_time_interval: 0.1
 
     # Debug
-    publish_debug_pointcloud: false
     publish_debug_markers: true
 
-    # Point cloud partitioning
-    detection_range_min_height: 0.0
+    # Obstacle grid z-band
     detection_range_max_height_margin: 0.0
-    voxel_grid_x: 0.1
-    voxel_grid_y: 0.1
-    voxel_grid_z: 0.5
 
-    # Point cloud cropping
+    # Ego path cropping
     expand_width: -0.2
-    path_footprint_extra_margin: 1.0
     speed_calculation_expansion_margin: 0.7
 
-    # Point cloud clustering
-    cluster_tolerance: 0.15 #[m]
-    cluster_minimum_height: 0.1
-    minimum_cluster_size: 10
-    maximum_cluster_size: 10000
+    # Obstacle grid gating (replaces voxel + Euclidean clustering; per-cell gate + 8-connected
+    # component point-sum). minimum_cluster_size counts RAW returns (the grid is pre-voxel), so a
+    # value tuned for the old post-voxel cluster size may need to be raised accordingly.
+    cluster_minimum_height: 0.1  # per-cell low_max_height floor [m] (tallest in-band return)
+    minimum_cluster_size: 10     # min summed point_count over an 8-connected component of cells
+    min_point_count_cell: 1      # per-cell density floor [returns]
+    obstacle_grid_timeout_sec: 0.5  # grid staleness watchdog [s]; stale = unavailable, not "clear"
 
     # RSS distance collision check
     longitudinal_offset_margin: 1.0

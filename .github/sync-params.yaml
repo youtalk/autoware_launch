@@ -136,6 +136,9 @@ perception:
       - source: perception/autoware_occupancy_grid_map_outlier_filter/config/occupancy_grid_map_outlier_filter.param.yaml
         variants:
           - path: autoware_launch/config/perception/obstacle_segmentation/occupancy_grid_based_outlier_filter/occupancy_grid_map_outlier_filter.param.yaml
+      - source: perception/autoware_obstacle_grid_extractor/config/obstacle_grid_extractor.param.yaml
+        variants:
+          - path: autoware_launch/config/perception/obstacle_segmentation/obstacle_grid_extractor/obstacle_grid_extractor.param.yaml
       # Perception/occupancy_grid_map
       - source: perception/autoware_probabilistic_occupancy_grid_map/config/binary_bayes_filter_updater.param.yaml
         variants:

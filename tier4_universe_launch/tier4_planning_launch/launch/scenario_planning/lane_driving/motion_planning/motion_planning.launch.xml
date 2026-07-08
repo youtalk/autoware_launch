@@ -1,6 +1,7 @@
 <launch>
   <arg name="input_objects_topic_name"/>
   <arg name="input_pointcloud_topic_name"/>
+  <arg name="input_obstacle_grid_topic_name"/>
   <arg name="interface_input_topic" default="/planning/scenario_planning/lane_driving/behavior_planning/path"/>
   <arg name="interface_output_topic" default="/planning/scenario_planning/lane_driving/trajectory"/>
 
@@ -223,7 +224,7 @@
         <!-- topic remap -->
         <remap from="~/input/odometry" to="/localization/kinematic_state"/>
         <remap from="~/input/objects" to="$(var input_objects_topic_name)"/>
-        <remap from="~/input/pointcloud" to="$(var input_pointcloud_topic_name)"/>
+        <remap from="~/input/obstacle_grid" to="$(var input_obstacle_grid_topic_name)"/>
         <remap from="~/output/max_velocity" to="/planning/scenario_planning/max_velocity_candidates"/>
         <remap from="~/output/velocity_limit_clear_command" to="/planning/scenario_planning/clear_velocity_limit"/>
         <remap from="~/output/stop_reasons" to="/planning/scenario_planning/status/stop_reasons"/>

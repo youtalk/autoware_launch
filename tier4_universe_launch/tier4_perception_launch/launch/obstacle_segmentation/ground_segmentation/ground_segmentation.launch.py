@@ -540,6 +540,32 @@ class GroundSegmentationPipeline:
         )
 
 
+def create_obstacle_grid_extractor_components(context, input_topic):
+    # Co-locate the obstacle grid extractor with the no-ground pipeline so it rasterizes the final
+    # obstacle segmentation cloud into the 2.5D grid consumed by the last-resort safety path.
+    if LaunchConfiguration("launch_obstacle_grid_extractor").perform(context).lower() != "true":
+        return []
+    extractor_param = ParameterFile(
+        param_file=LaunchConfiguration(
+            "obstacle_segmentation_obstacle_grid_extractor_param_path"
+        ).perform(context),
+        allow_substs=True,
+    )
+    return [
+        ComposableNode(
+            package="autoware_obstacle_grid_extractor",
+            plugin="autoware::obstacle_grid_extractor::ObstacleGridExtractorNode",
+            name="obstacle_grid_extractor",
+            remappings=[
+                ("~/input/pointcloud", input_topic),
+                ("~/output/obstacle_grid", LaunchConfiguration("output/obstacle_grid")),
+            ],
+            parameters=[extractor_param],
+            extra_arguments=[{"use_intra_process_comms": LaunchConfiguration("use_intra_process")}],
+        )
+    ]
+
+
 def launch_setup(context, *args, **kwargs):
     pipeline = GroundSegmentationPipeline(context)
 
@@ -577,6 +603,7 @@ def launch_setup(context, *args, **kwargs):
                 extra_arguments=[],
             )
         )
+        components.extend(create_obstacle_grid_extractor_components(context, pipeline.output_topic))
         return [
             LoadComposableNodes(
                 composable_node_descriptions=components,
@@ -609,6 +636,14 @@ def launch_setup(context, *args, **kwargs):
         )
         actions.append(ptv3_launch)
 
+        grid_components = create_obstacle_grid_extractor_components(context, pipeline.output_topic)
+        if grid_components:
+            actions.append(
+                LoadComposableNodes(
+                    composable_node_descriptions=grid_components,
+                    target_container=LaunchConfiguration("pointcloud_container_name"),
+                )
+            )
         return actions
     components.extend(
         pipeline.create_single_frame_obstacle_segmentation_components(
@@ -651,6 +686,7 @@ def launch_setup(context, *args, **kwargs):
                 ),
             )
         )
+    components.extend(create_obstacle_grid_extractor_components(context, pipeline.output_topic))
     pointcloud_container_loader = LoadComposableNodes(
         composable_node_descriptions=components,
         target_container=LaunchConfiguration("pointcloud_container_name"),
@@ -686,6 +722,15 @@ def generate_launch_description():
         [
             FindPackageShare("autoware_ground_segmentation_cuda"),
             "/config/cuda_scan_ground_segmentation_filter.param.yaml",
+        ],
+    )
+    add_launch_arg("launch_obstacle_grid_extractor", "True")
+    add_launch_arg("output/obstacle_grid", "/sensing/obstacle_segmentation/obstacle_grid")
+    add_launch_arg(
+        "obstacle_segmentation_obstacle_grid_extractor_param_path",
+        [
+            FindPackageShare("autoware_obstacle_grid_extractor"),
+            "/config/obstacle_grid_extractor.param.yaml",
         ],
     )
 

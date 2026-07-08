@@ -289,6 +289,10 @@
       name="obstacle_segmentation_ground_segmentation_elevation_map_param_path"
       value="$(find-pkg-share autoware_launch)/config/perception/obstacle_segmentation/ground_segmentation/elevation_map_parameters.yaml"
     />
+    <arg
+      name="obstacle_segmentation_obstacle_grid_extractor_param_path"
+      value="$(find-pkg-share autoware_launch)/config/perception/obstacle_segmentation/obstacle_grid_extractor/obstacle_grid_extractor.param.yaml"
+    />
 
     <!-- occupancy grid map parameters -->
     <arg name="occupancy_grid_map_param_path" value="$(find-pkg-share autoware_launch)/config/perception/occupancy_grid_map/$(var occupancy_grid_map_method_full).param.yaml"/>

@@ -28,6 +28,8 @@
   <arg name="object_recognition_tracking_radar_tracked_object_lanelet_filter_param_path"/>
   <arg name="obstacle_segmentation_ground_segmentation_param_path"/>
   <arg name="obstacle_segmentation_ground_segmentation_elevation_map_param_path"/>
+  <arg name="obstacle_segmentation_obstacle_grid_extractor_param_path"/>
+  <arg name="launch_obstacle_grid_extractor" default="true" description="launch the obstacle grid extractor alongside the no-ground obstacle segmentation pipeline"/>
   <arg name="object_recognition_detection_obstacle_pointcloud_based_validator_param_path"/>
   <arg name="object_recognition_detection_detection_by_tracker_param"/>
   <arg name="occupancy_grid_map_method"/>
@@ -243,6 +245,8 @@
         <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
         <arg name="input/pointcloud" value="$(var perception_pointcloud)"/>
         <arg name="obstacle_segmentation_ground_segmentation_param_path" value="$(var obstacle_segmentation_ground_segmentation_param_path)"/>
+        <arg name="obstacle_segmentation_obstacle_grid_extractor_param_path" value="$(var obstacle_segmentation_obstacle_grid_extractor_param_path)"/>
+        <arg name="launch_obstacle_grid_extractor" value="$(var launch_obstacle_grid_extractor)"/>
         <arg name="use_single_frame_filter" value="$(var use_obstacle_segmentation_single_frame_filter)"/>
         <arg name="use_time_series_filter" value="$(var use_obstacle_segmentation_time_series_filter)"/>
         <arg name="use_cuda_ground_segmentation" value="$(var use_cuda_ground_segmentation)"/>
