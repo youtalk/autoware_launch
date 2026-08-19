@@ -271,7 +271,7 @@
         <load_composable_node target="/control/control_check_container">
           <composable_node pkg="autoware_obstacle_collision_checker" plugin="autoware::obstacle_collision_checker::ObstacleCollisionCheckerNode" name="obstacle_collision_checker">
             <remap from="input/lanelet_map_bin" to="/map/vector_map"/>
-            <remap from="input/obstacle_pointcloud" to="$(var input_pointcloud_topic_name)"/>
+            <remap from="/perception/obstacle_segmentation/pointcloud" to="$(var input_pointcloud_topic_name)"/>
             <remap from="input/reference_trajectory" to="/planning/trajectory"/>
             <remap from="input/predicted_trajectory" to="/control/trajectory_follower/lateral/predicted_trajectory"/>
             <remap from="input/odometry" to="/localization/kinematic_state"/>

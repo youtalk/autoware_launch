@@ -183,7 +183,7 @@
         <remap from="~/input/vehicle_odometry" to="/localization/kinematic_state"/>
         <remap from="~/input/accel" to="/localization/acceleration"/>
         <remap from="~/input/dynamic_objects" to="$(var input_objects_topic_name)"/>
-        <remap from="~/input/no_ground_pointcloud" to="$(var input_pointcloud_topic_name)"/>
+        <remap from="/perception/obstacle_segmentation/pointcloud" to="$(var input_pointcloud_topic_name)"/>
         <remap from="~/input/traffic_signals" to="/perception/traffic_light_recognition/traffic_signals"/>
         <remap from="~/input/virtual_traffic_light_states" to="/perception/virtual_traffic_light_states"/>
         <remap from="~/input/occupancy_grid" to="/perception/occupancy_grid_map/map"/>
@@ -223,7 +223,7 @@
         <!-- topic remap -->
         <remap from="~/input/odometry" to="/localization/kinematic_state"/>
         <remap from="~/input/objects" to="$(var input_objects_topic_name)"/>
-        <remap from="~/input/pointcloud" to="$(var input_pointcloud_topic_name)"/>
+        <remap from="/perception/obstacle_segmentation/pointcloud" to="$(var input_pointcloud_topic_name)"/>
         <remap from="~/output/max_velocity" to="/planning/scenario_planning/max_velocity_candidates"/>
         <remap from="~/output/velocity_limit_clear_command" to="/planning/scenario_planning/clear_velocity_limit"/>
         <remap from="~/output/stop_reasons" to="/planning/scenario_planning/status/stop_reasons"/>

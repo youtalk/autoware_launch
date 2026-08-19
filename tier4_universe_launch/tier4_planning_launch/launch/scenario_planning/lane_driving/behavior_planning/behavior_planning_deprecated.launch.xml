@@ -184,7 +184,7 @@
       <remap from="~/input/vehicle_odometry" to="/localization/kinematic_state"/>
       <remap from="~/input/accel" to="/localization/acceleration"/>
       <remap from="~/input/dynamic_objects" to="$(var input_objects_topic_name)"/>
-      <remap from="~/input/no_ground_pointcloud" to="$(var input_pointcloud_topic_name)"/>
+      <remap from="/perception/obstacle_segmentation/pointcloud" to="$(var input_pointcloud_topic_name)"/>
       <remap from="~/input/compare_map_filtered_pointcloud" to="compare_map_filtered/pointcloud"/>
       <remap from="~/input/vector_map_inside_area_filtered_pointcloud" to="vector_map_inside_area_filtered/pointcloud"/>
       <remap from="~/input/external_velocity_limit_mps" to="/planning/scenario_planning/max_velocity_default"/>
