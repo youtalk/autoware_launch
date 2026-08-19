@@ -19,3 +19,15 @@
 
     # debug parameters
     publish_processing_time_detail: false
+
+    # QoS override: when this node is the obstacle segmentation terminal (both outlier
+    # filters disabled), this reconfigures its output publisher onto the interface spec's
+    # RELIABLE / KEEP_LAST / depth 5 QoS via `Filter`'s QosOverridingOptions::with_default_policies().
+    # Inert when the resolved output topic is not /perception/obstacle_segmentation/pointcloud
+    # (i.e. when an outlier filter stage is the terminal instead).
+    qos_overrides:
+      /perception/obstacle_segmentation/pointcloud:
+        publisher:
+          reliability: reliable
+          depth: 5
+          history: keep_last

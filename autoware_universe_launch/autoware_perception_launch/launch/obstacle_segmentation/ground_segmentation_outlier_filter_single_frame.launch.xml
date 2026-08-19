@@ -60,6 +60,20 @@
         <param name="voxel_size_y" value="0.4"/>
         <param name="voxel_size_z" value="100.0"/>
         <param name="voxel_points_threshold" value="5"/>
+        <!-- QoS override: when this node is the obstacle segmentation terminal (single-frame
+             outlier filter enabled, time-series filter disabled), this reconfigures its output
+             publisher onto the interface spec's RELIABLE / KEEP_LAST / depth 5 QoS via
+             `Filter`'s QosOverridingOptions::with_default_policies(). Inert when the resolved
+             output topic is not /perception/obstacle_segmentation/pointcloud. -->
+        <param name="qos_overrides">
+          <param name="/perception/obstacle_segmentation/pointcloud">
+            <param name="publisher">
+              <param name="reliability" value="reliable"/>
+              <param name="depth" value="5"/>
+              <param name="history" value="keep_last"/>
+            </param>
+          </param>
+        </param>
         <extra_arg name="use_intra_process_comms" value="$(var use_intra_process)"/>
       </composable_node>
     </load_composable_node>
